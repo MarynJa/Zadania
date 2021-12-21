@@ -1,0 +1,62 @@
+CREATE DATABASE zadanko DEFAULT CHARACTER SET utf8;
+
+CREATE TABLE bibliotekarz (
+id_bibliotekarz INT PRIMARY KEY AUTO_INCREMENT,
+login VARCHAR(50),
+haslo VARCHAR(50));
+
+CREATE TABLE admin (
+id_admin INT PRIMARY KEY AUTO_INCREMENT,
+login VARCHAR(50),
+haslo VARCHAR(50));
+
+CREATE TABLE czytelnik (
+id_czytelnik INT PRIMARY KEY AUTO_INCREMENT,
+login VARCHAR(50),
+haslo VARCHAR(45),
+imie VARCHAR(100),
+nazwisko VARCHAR(100),
+adres VARCHAR(150),
+miasto VARCHAR(45),
+wojewodztwo VARCHAR(100),
+telefon VARCHAR(50),
+kod_pocztowy VARCHAR(50),
+email VARCHAR(100));
+
+CREATE TABLE kategoria (
+id_kategoria INT PRIMARY KEY AUTO_INCREMENT,
+nazwa VARCHAR(200));
+
+
+
+CREATE TABLE ksiazka (
+id_ksiazka INT PRIMARY KEY AUTO_INCREMENT,
+id_kategoria INT,
+tytul VARCHAR(200),
+autor VARCHAR(70),
+stron INT(5),
+wydawnictwo VARCHAR(50),
+rok_wydania INT(4),
+opis TEXT);
+
+ALTER TABLE ksiazka ADD
+FOREIGN KEY (id_kategoria) REFERENCES kategoria(id_kategoria);
+
+
+
+CREATE TABLE zamowienie (
+id_zamowienie INT PRIMARY KEY AUTO_INCREMENT,
+id_czytelnik INT,
+id_ksiazka INT,
+data_zamowienia DATETIME,
+data_odbioru DATETIME,
+data_zwrotu DATETIME);
+
+
+
+ALTER TABLE zamowienie ADD
+FOREIGN KEY (id_czytelnik) REFERENCES czytelnik(id_czytelnik);
+
+ALTER TABLE zamowienie ADD
+FOREIGN KEY (id_ksiazka) REFERENCES ksiazka(id_ksiazka);
+
